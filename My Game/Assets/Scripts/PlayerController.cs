@@ -13,13 +13,14 @@ public class PlayerController : MonoBehaviour
     public bool isOnGround = true;
     public GameObject projectilePrefab;
     public bool gameOver = false;
+    private PlayerController playerControllerScript;
 
- 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
+        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -35,8 +36,11 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
         }
 
-        horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+        if (playerControllerScript.gameOver == false)
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {

@@ -6,6 +6,7 @@ public class MoveForwardBullet : MonoBehaviour
 {
     public float speed = 50;
     private PlayerController playerControllerScript;
+    Vector3 tempPos;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,8 @@ public class MoveForwardBullet : MonoBehaviour
     {
         if (playerControllerScript.gameOver == false)
         {
+            transform.position = new Vector3(transform.position.x, 5, transform.position.z);
+
             transform.Translate(Vector3.up * Time.deltaTime * speed);
         }
         

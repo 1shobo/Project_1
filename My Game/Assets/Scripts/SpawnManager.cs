@@ -12,6 +12,7 @@ public class SpawnManager : MonoBehaviour
     private float startDelayA = 1;
     private float spawnInterval = 1.5f;
     private PlayerController playerControllerScript;
+    private GameManager gameManagerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,7 @@ public class SpawnManager : MonoBehaviour
         InvokeRepeating("SpawnRandomObstacle", startDelay, spawnInterval);
         InvokeRepeating("SpawnRandomAlien", startDelayA, spawnInterval);
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -35,6 +37,8 @@ public class SpawnManager : MonoBehaviour
         {
             Instantiate(obstaclePrefabs[obstacleIndex], new Vector3(-spawnRangeX, 0, Random.Range(-spawnRangeZ, spawnRangeZ)),
            obstaclePrefabs[obstacleIndex].transform.rotation);
+
+            //gameManagerScript.UpdateScore(5);
         }
        
 

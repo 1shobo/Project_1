@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] obstaclePrefabs;
     public GameObject[] alienPrefabs;
-    private float spawnRangeX = 80;
+    private float spawnRangeX = 150;
     private float spawnRangeZ = 20;
     private float startDelay = 2;
     private float startDelayA = 1;

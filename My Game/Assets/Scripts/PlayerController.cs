@@ -14,13 +14,21 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public bool gameOver = false;
     private PlayerController playerControllerScript;
+    private Animator playerAnim;
+    private GameManager gameManager;
+    public AudioClip shootSound;
+    public AudioClip collidSound;
+    public AudioSource playerAudio;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        playerAnim = GetComponent<Animator>();
         Physics.gravity *= gravityModifier;
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -50,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-           
+            playerAudio.PlayOneShot(shootSound, 1.0f);
             Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
         }
     }
@@ -70,13 +78,15 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Alien"))
         {
             gameOver = true;
-            Debug.Log("Game Over!");
+            gameManager.GameOver();
+            playerAnim.SetBool("playDeath", true);
         }
         
         else if (other.gameObject.CompareTag("Obstacle"))
         {
             gameOver = true;
-            Debug.Log("Game Over!");
+            gameManager.GameOver();
+            playerAnim.SetBool("playDeath", true);
         }
     }
 
